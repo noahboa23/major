@@ -1,9 +1,9 @@
-// Noah Acosta - HW 7- COSC 2436
+// Noah Acosta - a maze that implements Dijkstra's Shortest Path Algorithm
 import java.io.*;
 import java.util.*;
 
 public class dante {
-    static String CLS = "\033[2J\033[1;1H";
+	static String CLS = "\033[2J\033[1;1H";
 	static String Red = "\033[31;1m";
 	static String Green = "\033[32;1m";
 	static String Yellow = "\033[33;1m";
@@ -15,17 +15,17 @@ public class dante {
 	public static void main(String[] args) throws IOException
 	{
 		Scanner in = new Scanner(System.in);
-        // read in vertices
-        File file = new File("vertex.txt");
-        Scanner infile = new Scanner(file);
+        	// read in vertices
+        	File file = new File("vertex.txt");
+        	Scanner infile = new Scanner(file);
 		String Input = "";
-        Screens screen = new Screens();
+        	Screens screen = new Screens();
 		while (infile.hasNextLine())
 		{
 			Input = infile.nextLine();
 			Vertex.add(new Room(Input));
 		}
-        System.out.println();
+        	System.out.println();
 		System.out.println(Vertex.size() + " vertices read from file");
 
 		// read in edges
@@ -73,15 +73,15 @@ public class dante {
 			}
 		}
 		System.out.println(Count + " edges read from file");
-        screen.DrawIntroScreen();
+        	screen.DrawIntroScreen();
 		System.out.println("Press <Enter> to Continue");
 		in.nextLine();
-        System.out.print(CLS);
-        Room temp = Vertex.get(0); // points to Entryway
-        char choice = ' ';
-        while (choice != 'q'){
-            System.out.println("\nYou are in room: " + WhiteOnBlue+temp.RoomName+Normal);
-
+        	System.out.print(CLS);
+        	Room temp = Vertex.get(0); // points to Entryway
+        	char choice = ' ';
+        	while (choice != 'q'){
+			System.out.println("\nYou are in room: " + WhiteOnBlue+temp.RoomName+Normal);
+			
 			if(temp.RoomName.equals("Limbo")){
 				printLimbo();
 			}
@@ -127,53 +127,56 @@ public class dante {
 			if(temp.RoomName.equals("Salvation")){
 				printSal();
 			}
-            System.out.println();
-            System.out.println("Commands: n = north, s = south, e = east, w = west, f = find shortest path, q = QUIT ");
-            System.out.print("Your choice: ");
-            choice = in.next().charAt(0);
-
-            if(choice == 'n' && temp.North != null){
-                temp = temp.North;            
-            }
-            if(choice == 'e' && temp.East != null){
-                temp = temp.East;
-            }
-            if(choice == 's' && temp.South != null){
-                temp = temp.South;
-            }
+			System.out.println();
+            		System.out.println("Commands: n = north, s = south, e = east, w = west, f = find shortest path, q = QUIT ");
+            		System.out.print("Your choice: ");
+            		choice = in.next().charAt(0);
+			if(choice == 'n' && temp.North != null){
+                		temp = temp.North;            
+            		}
+            		if(choice == 'e' && temp.East != null){
+                		temp = temp.East;
+            		}
+            		if(choice == 's' && temp.South != null){
+                		temp = temp.South;
+            		}
 			if(choice == 'w' && temp.West != null){
-                temp = temp.West;
-            }
-            if(choice == 'f'){
-                System.out.println("\nWhich room would you like to travel to? ");
-                in.nextLine();
-                String destination = in.nextLine();
-                // search for destin in vertex array list
-                boolean destinFound = false;
-                for(int i = 0; i<Vertex.size(); i++){
-                    if(destination.equals(Vertex.get(i).RoomName)){ // found room
-                        destinFound = true;
-                        Dijkstra(temp, Vertex.get(i));
-                        System.out.print("Shortest path: "); 
-                        // step thru path array list and print e/a room name
-                        for(int j = 0; j<Path.size(); j++){
-                            System.out.print(Yellow +(Path.get(j).RoomName) +Normal+"   ");
-                        }
-                        System.out.println();
-                    }
-                }
-                if(!destinFound){
-                    System.out.println(Red+"This room was not found!"+Normal);
-                }
-            }
-            if(choice != 'n' && choice != 'e' && choice != 's' && choice != 'w' && choice != 'f' && choice != 'q'){
-                System.out.println(Red+"ERROR! Cannot perform that action."+Normal);
-            }
-        }
+                		temp = temp.West;
+            		}
+			if(choice == 'f')
+			{
+				System.out.println("\nWhich room would you like to travel to? ");
+                		in.nextLine();
+                		String destination = in.nextLine();
+                		// search for destin in vertex array list
+                		boolean destinFound = false;
+                		for(int i = 0; i<Vertex.size(); i++) 
+				{
+					if(destination.equals(Vertex.get(i).RoomName)) 
+					{ 	// found room 
+						destinFound = true;
+                        			Dijkstra(temp, Vertex.get(i));
+                       				System.out.print("Shortest path: "); 
+                       				// step thru path array list and print e/a room name
+						for(int j = 0; j<Path.size(); j++) 
+						{
+							System.out.print(Yellow +(Path.get(j).RoomName) +Normal+"   ");
+						}
+						System.out.println();
+					}
+				}
+				if(!destinFound){
+					System.out.println(Red+"This room was not found!"+Normal);
+				}
+			}
+			if(choice != 'n' && choice != 'e' && choice != 's' && choice != 'w' && choice != 'f' && choice != 'q'){
+				System.out.println(Red+"ERROR! Cannot perform that action."+Normal);
+			}
+		}
 	} // end main
 
 // METHODS 
-    static void Dijkstra(Room Start, Room Finish)
+	static void Dijkstra(Room Start, Room Finish)
 	{
 		// set distance to all rooms (except for Start) to 1000 and visited = false
 		for (int i=0; i<Vertex.size(); i++)
@@ -233,10 +236,10 @@ public class dante {
 			Path.add(0,Temp);
 		}
 	} // end Dijktra
-    static void printLimbo(){
+	static void printLimbo(){
 		System.out.println("---------------------------------------");
 		System.out.println("|                                     |");
-        System.out.println("|                                     |");
+        	System.out.println("|                                     |");
 		System.out.println("|             lllllll_______          |");
 		System.out.println("|            _,_ llllllllllll\\        |");
 		System.out.println("|  ___      /   \\  lllllllllll\\       |");
@@ -248,18 +251,18 @@ public class dante {
 		System.out.println("|  	//            \\               |");
 		System.out.println("|         ||             ||           |");
 		System.out.println("|         OO             OO           |");
-        System.out.println("|                                     |");
+        	System.out.println("|                                     |");
 		System.out.println("|                                     |");
-        System.out.println("|                                     "+Green+"--"+Normal);
-        System.out.println("|                                     ");
-        System.out.println("|                                     "+Green+"__"+Normal);
-        System.out.println("|                                     |");
+        	System.out.println("|                                     "+Green+"--"+Normal);
+        	System.out.println("|                                     ");
+        	System.out.println("|                                     "+Green+"__"+Normal);
+        	System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("---------------------------------------");
-    }
-    static void printLust(){
+	}
+	static void printLust(){
 		System.out.println("---------------------------------------");
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
@@ -284,8 +287,8 @@ public class dante {
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("---------------"+Green+"|        |"+Normal+"--------------");
-    }
-    static void printGluttony(){
+	}
+	static void printGluttony(){
 		System.out.println("---------------------------------------");
 		System.out.println("| // \"\"--.._		              |");
 		System.out.println("| ||  (_)  _ \"-._                     |");
@@ -303,8 +306,8 @@ public class dante {
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("---------------------------------------");
-    }
-    static void printBank(){
+	}
+	static void printBank(){
 		System.out.println("---------------------------------------");
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
@@ -326,11 +329,11 @@ public class dante {
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("---------------"+Green+"|        |"+Normal+"--------------");
-    }
-    static void printHeresy(){
+	}
+	static void printHeresy(){
 		System.out.println("---------------"+Green+"|        |"+Normal+"--------------");
-        System.out.println("|                                     |");
-        System.out.println("|                                     |");
+        	System.out.println("|                                     |");
+        	System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
@@ -351,9 +354,8 @@ public class dante {
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("---------------"+Green+"|        |"+Normal+"--------------");
-
-    }
-    static void printAnger(){
+	}
+	static void printAnger(){
 		System.out.println("---------------------------------------");
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
@@ -371,8 +373,8 @@ public class dante {
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("---------------"+Green+"|        |"+Normal+"--------------");
-    }
-    static void printGreed(){
+	}
+	static void printGreed(){
 		System.out.println("---------------"+Green+"|        |"+Normal+"--------------");
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
@@ -392,7 +394,7 @@ public class dante {
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("---------------"+Green+"|        |"+Normal+"--------------");
-    }
+	}
 	static void printRep(){
 		System.out.println("---------------------------------------");
 		System.out.println("|                                     |");
@@ -415,7 +417,7 @@ public class dante {
 		System.out.println("|  .-\"`   `\"`'`   `\"-.                |");
 		System.out.println("|.'                   '.              |");
 		System.out.println("|                                     |");
-        System.out.println("|                                     |");
+        	System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("---------------"+Green+"|        |"+Normal+"--------------");
 	}
@@ -447,13 +449,13 @@ public class dante {
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
-        System.out.println("|                                     |");
+        	System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
-        System.out.println("|                                     |");
-        System.out.println("|                                     |");
+        	System.out.println("|                                     |");
+        	System.out.println("|                                     |");
 		System.out.println("|                                     |");
-    	System.out.println("|                                     |");
+    		System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("---------------"+Green+"|        |"+Normal+"--------------");
@@ -471,7 +473,7 @@ public class dante {
 		System.out.println("| ------\\     (__)                    |");
 		System.out.println("|        `-----\"                      |");
 		System.out.println("|                                     |");
-    	System.out.println("|                                     |");
+    		System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("---------------"+Green+"|        |"+Normal+"--------------");
@@ -481,7 +483,7 @@ public class dante {
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("|                                     |");
-        System.out.println("|                                     |");
+        	System.out.println("|                                     |");
 		System.out.println("|                                     |");
 		System.out.println("|                                     "+Green+"--"+Normal);
 		System.out.println("|                                     ");
@@ -564,33 +566,37 @@ public class dante {
 
 	}
 } // end dante
-class Room{
+class Room 
+{
     String RoomName;
     Room North, South, East, West; // pointers
     boolean Visited;
     int Distance;
 
-    Room(String newRoom){
+    Room(String newRoom)
+    {
         RoomName = newRoom;
     }
 } // end Room
-class Screens{
+class Screens
+{
 	static String Normal = "\033[0m";
 	static String Red = "\033[31;1m";
 	static String WhiteOnRed = "\033[41;1m";
-    public void DrawIntroScreen(){
-        Scanner in = new Scanner(System.in);
-        System.out.println();
-        System.out.println();
-        System.out.println(WhiteOnRed+" ______       ____        __      _   ________    _____   __    _____       _____      __      _   _________    _____   ______        __      _     ____    "+Normal);
-        System.out.println(WhiteOnRed+"(_  __ \\     (    )      /  \\\\    / ) (___  ___)  / ___/  (  )  / ____\\     (_   _)    /  \\    / ) (_   _____)  / ___/  (   __ \\      /  \\    / )   / __ \\  "+Normal);
-        System.out.println(WhiteOnRed+"  ) ) \\ \\    / /\\ \\     / /\\ \\  / /      ) )    ( (__     \\/  ( (___         | |     / /\\ \\  / /    ) (___    ( (__     ) (__) )    / /\\ \\  / /   / /  \\ \\  "+Normal);
-        System.out.println(WhiteOnRed+"  ( (   ) )  ( (__) )    ) ) ) ) ) )     ( (      ) __)         \\___ \\        | |     ) ) ) ) ) )   (   ___)    ) __)   (    __/     ) ) ) ) ) )  ( ()  () )"+Normal);
-        System.out.println(WhiteOnRed+"  ) )  ) )   )    (    ( ( ( ( ( (       ) )    ( (                ) )       | |    ( ( ( ( ( (     ) (       ( (       ) \\ \\  _   ( ( ( ( ( (   ( ()  () ) "+Normal);
-        System.out.println(WhiteOnRed+" / /__/ /   /  /\\  \\   / /  \\ \\/ /      ( (      \\ \\___        ___/ /       _| |__  / /  \\ \\/ /    (   )       \\ \\___  ( ( \\ \\_))  / /  \\ \\/ /    \\ \\__/ /  "+Normal);
-        System.out.println(WhiteOnRed+"(______/   /__(  )__\\ (_/    \\__/       /__\\      \\____\\      /____/       /_____( (_/    \\__/      \\_/         \\____\\  )_) \\__/  (_/    \\__/      \\____/   "+Normal);
+	public void DrawIntroScreen()
+	{
+		Scanner in = new Scanner(System.in);
+        	System.out.println();
+        	System.out.println();
+        	System.out.println(WhiteOnRed+" ______       ____        __      _   ________    _____   __    _____       _____      __      _   _________    _____   ______        __      _     ____    "+Normal);
+        	System.out.println(WhiteOnRed+"(_  __ \\     (    )      /  \\\\    / ) (___  ___)  / ___/  (  )  / ____\\     (_   _)    /  \\    / ) (_   _____)  / ___/  (   __ \\      /  \\    / )   / __ \\  "+Normal);
+        	System.out.println(WhiteOnRed+"  ) ) \\ \\    / /\\ \\     / /\\ \\  / /      ) )    ( (__     \\/  ( (___         | |     / /\\ \\  / /    ) (___    ( (__     ) (__) )    / /\\ \\  / /   / /  \\ \\  "+Normal);
+        	System.out.println(WhiteOnRed+"  ( (   ) )  ( (__) )    ) ) ) ) ) )     ( (      ) __)         \\___ \\        | |     ) ) ) ) ) )   (   ___)    ) __)   (    __/     ) ) ) ) ) )  ( ()  () )"+Normal);
+        	System.out.println(WhiteOnRed+"  ) )  ) )   )    (    ( ( ( ( ( (       ) )    ( (                ) )       | |    ( ( ( ( ( (     ) (       ( (       ) \\ \\  _   ( ( ( ( ( (   ( ()  () ) "+Normal);
+        	System.out.println(WhiteOnRed+" / /__/ /   /  /\\  \\   / /  \\ \\/ /      ( (      \\ \\___        ___/ /       _| |__  / /  \\ \\/ /    (   )       \\ \\___  ( ( \\ \\_))  / /  \\ \\/ /    \\ \\__/ /  "+Normal);
+        	System.out.println(WhiteOnRed+"(______/   /__(  )__\\ (_/    \\__/       /__\\      \\____\\      /____/       /_____( (_/    \\__/      \\_/         \\____\\  )_) \\__/  (_/    \\__/      \\____/   "+Normal);
 
-        System.out.println();
+        	System.out.println();
 		System.out.println();
 		System.out.println("                                           .\"\"--.._");
 		System.out.println("                                           []      `'--.._");
@@ -598,7 +604,7 @@ class Screens{
 		System.out.println("                                         `)||_ ```'--"+Red+"..       \\"+Normal + "                        |           Travel through the Circles of Hell in Dante's Inferno                    |");
 		System.out.println("                                           /|//}        "+Red+"``--._  |"+Normal + "                      |                  \"Abondon all hope ye who enter here...\"                           |");
 		System.out.println("                     _                    //|| }               "+Red+"`\\/"+Normal + "                     |                                                                                    |");
-        System.out.println("                  .'` `'.                /////}            "+Normal + "                            | 00. Salvation -- All that is Holy                                                  |");
+        	System.out.println("                  .'` `'.                /////}            "+Normal + "                            | 00. Salvation -- All that is Holy                                                  |");
 		System.out.println("                 /  .\"\"\".\\             //{///" + "                                          | 0. Repentance -- Forgiveness of Sin                                                |");
 		System.out.println("                /  /_  _`\\            // ` ||"+ "                                          | 1. Limbo -- Unbaptized and Virtuous Pagans                                         |");
 		System.out.println("                | |(_)(_)||          _//   ||"+ "                                          | 2. Lust -- Lustful                                                                 |");
@@ -634,5 +640,5 @@ class Screens{
 		System.out.println("         `---'`   `'----'`");
 		System.out.println();
 		System.out.println();
-    }
+	}
 } // END
