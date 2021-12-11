@@ -156,7 +156,7 @@ class Screens
 		System.out.println(WhiteOnRed+"    O     O      o  o              O   O      O    O       O        o        o    o         O         O       O o        O         O      o  O   O    o              o \t");
 		System.out.println(WhiteOnRed+"    O     o      o  O              o    o     O    o     . o     .  O        O     O        `o     .o `o     Oo O        `o     .o o      O  o    o   O       O.    .O \t");
 		System.out.println(WhiteOnRed+"    o'    o      O ooOooOoO        O     O ooOOoOo OOoOooO OOoOooO ooOooOoO  O      o        `OoooO'   `OoooO'O o'        `OoooO'  O.     O  O     O ooOooOoO  `oooO'  \t"+Normal);
-        System.out.println();                                                                                                                                                               
+        	System.out.println();                                                                                                                                                               
 	
 
 		      
